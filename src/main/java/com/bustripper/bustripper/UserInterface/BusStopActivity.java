@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +31,7 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_find_bus_service);
-
+        setContentView(R.layout.fragment_find_bus_stop);
 
         final Intent intent = getIntent();
         final String num = intent.getStringExtra("number");
@@ -59,7 +61,7 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(BusStopActivity.this, "No such stop!", Toast.LENGTH_SHORT).show();
-                kill_activity();
+
             }
         }
         else if (num.length()<=4){
@@ -70,7 +72,7 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
                 stop_no.setText("");
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(BusStopActivity.this, "No such stop!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BusStopActivity.this, "No such BusService!", Toast.LENGTH_SHORT).show();
                 kill_activity();
             }
 
@@ -86,8 +88,7 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Refreshing", Snackbar.LENGTH_SHORT)
-//                        .setAction("Action", null).show();
+                Snackbar.make(view, "Refreshing", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                 GetBusTimes getBusTimes = new GetBusTimes(thisContext);
                 getBusTimes.execute(num);
             }
@@ -98,11 +99,13 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
     @Override
     public void onReceived(ArrayList<BusTimes> busTimes) {
         ListView lv = (ListView) findViewById(R.id.services_at_stop);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.hide_searchview);
+        linearLayout.setVisibility(View.GONE);
         ListAdapter mAdapter = new ListAdapter(getBaseContext(), R.layout.service_time_layout_list_item, busTimes);
         assert lv != null;
         lv.setAdapter(mAdapter);
     }
-    
+
 
     public void kill_activity(){
         finish();
