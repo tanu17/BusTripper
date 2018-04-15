@@ -58,11 +58,11 @@ public class FindBusServiceActivity extends Fragment implements LoaderManager.Lo
         //search button
         final Button findBusButton = (Button) rootView.findViewById(R.id.find_bus_no_button);
         findBusButton.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view){
-                //input from xml
-                userServiceNo = busNoEditText.getText().toString();
-            }
-            }
+                                             @Override public void onClick(View view){
+                                                 //input from xml
+                                                 userServiceNo = busNoEditText.getText().toString();
+                                             }
+                                         }
         );
 
         findBusButton.getBackground().setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAccent), Mode.MULTIPLY);
@@ -73,7 +73,7 @@ public class FindBusServiceActivity extends Fragment implements LoaderManager.Lo
             public void onClick(View v) {
                 //getLoaderManager().restartLoader(BUS_SERVICE_LOADER_ID, null, FindBusServiceActivity.this);
                 Intent intent = new Intent(getContext(), BusStopActivity.class);
-                intent.putExtra("number", findBusButton.getText().toString());
+                intent.putExtra("number", busNoEditText.getText().toString());
                 startActivity(intent);
             }
         });
