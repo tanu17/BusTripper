@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Bus Tripper</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forget_pass">Forgot password?</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="terms">By signing up, you agree to the Terms and Conditions.</string>
+    <string name="confirm">Confirm Password</string>
+    <string name="logout">Log out</string>
+    <string name="back">Back</string>
+    <string name="no_internet_connection">No Internet Connection...</string>
+    <string name="no_bus_services">No Bus Services Available...</string>
+    <string name="find_bus_no">Enter Bus Service No (e.g.179)</string>
+    <string name="fragment_route">Route Planner</string>
+</resources>

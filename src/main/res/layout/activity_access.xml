@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="com.bustripper.bustripper.UserInterface.AccessActivity">
+    >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="600px"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:contentDescription="the logo"
+        app:srcCompat="@drawable/logo"
+        />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/login_box_1"
+        android:textAllCaps="false"
+        android:fontFamily="@font/quenda_medium"
+        android:text="Login"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
+        />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/login_box_1"
+        android:fontFamily="@font/quenda_medium"
+        android:text="@string/signup"
+        android:textColor="@android:color/background_light"
+        android:textSize="28sp"
+        android:textAllCaps="false"
+        />
+
+</LinearLayout>
+</ScrollView>

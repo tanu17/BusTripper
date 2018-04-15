@@ -1,0 +1,67 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AFEEEEEE"
+    tools:context="com.bustripper.bustripper.UserInterface.RoutePlannerFragmentActivity">
+
+    <EditText
+        android:id="@+id/startAdd"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/searchaddress"
+        android:ems="10"
+        android:hint="Start address..."
+        android:inputType="textPostalAddress"
+        android:paddingLeft="24dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/endAdd"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="212dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="24dp"
+        android:ems="10"
+        android:hint="End address..."
+        android:inputType="textPostalAddress"
+        android:background="@drawable/searchaddress"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/searchGlassEnd"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="219dp"
+        android:contentDescription="search glass"
+        android:src="@drawable/searchglass" />
+
+    <ImageButton
+        android:id="@+id/current_loc_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="22dp"
+        android:src="@drawable/current_loc" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="160dp"
+        android:src="@drawable/arrow" />
+
+    <include
+        layout="@layout/route_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_marginTop="50dp"/>
+
+</FrameLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="?android:attr/selectableItemBackground"
+android:clickable="true"
+android:focusable="true"
+android:orientation="vertical"
+android:paddingBottom="16dp"
+android:paddingLeft="16dp"
+android:paddingRight="16dp"
+android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/start"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_alignParentTop="true"
+        android:text="Start" />
+
+    <TextView
+        android:id="@+id/end"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:text="End"
+        android:layout_toRightOf="@+id/start"
+        android:layout_marginLeft="70dp"/>
+
+    <TextView
+        android:id="@+id/destination"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:text="Destination"
+        android:layout_toRightOf="@+id/end"
+        android:layout_marginLeft="70dp"/>
+
+    <TextView
+        android:id="@+id/startCode"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
+        android:text="StartCode" />
+
+    <TextView
+        android:id="@+id/endCode"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_toRightOf="@+id/startCode"
+        android:layout_marginLeft="70dp"
+        android:text="EndCode" />
+
+    <TextView
+        android:id="@+id/desCode"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_toRightOf="@+id/endCode"
+        android:layout_marginLeft="70dp"
+        android:text="DestinationCode" />
+
+</RelativeLayout>

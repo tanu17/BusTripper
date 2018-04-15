@@ -1,0 +1,88 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#AFEEEEEE"
+    tools:context="com.bustripper.bustripper.UserInterface.SettingFragmentActivity">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#AFEEEEEE"
+        android:fontFamily="@font/patrick_hand"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="false"
+        android:textSize="24sp">
+
+    <TextView
+        android:id="@+id/username_setting"
+        android:layout_width="100dp"
+        android:layout_height="33dp"
+        android:paddingLeft="24dp"
+        android:ems="10"
+        android:text="Username:"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/display_user"
+        android:layout_toRightOf="@+id/username_setting"
+        android:text="Admin"
+
+        />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#AFEEEEEE"
+        android:fontFamily="@font/patrick_hand"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="52dp"
+        android:textAllCaps="false"
+        android:textSize="24sp">
+
+    <TextView
+        android:id="@+id/email_setting"
+        android:layout_width="100dp"
+        android:layout_height="33dp"
+        android:paddingLeft="24dp"
+        android:ems="10"
+        android:text="Email:"
+
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/display_email"
+            android:layout_toRightOf="@+id/email_setting"
+            android:text="Admin@hotmail.com"
+            />
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/expListView"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="94dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#000"
+        android:dividerHeight="0dp"
+        android:layout_weight="0.14" >
+    </ExpandableListView>
+
+
+</FrameLayout>
