@@ -2,15 +2,11 @@ package com.bustripper.bustripper.UserInterface;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,20 +15,21 @@ import android.widget.Toast;
 import com.bustripper.bustripper.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BusStopActivity extends AppCompatActivity implements GetBusTimes.onReceivedBusTimes {
+
+    static int busOrBusStop=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_find_bus_stop);
-
         final Intent intent = getIntent();
         final String num = intent.getStringExtra("number");
         final Context thisContext = this;
@@ -50,7 +47,7 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
 
 
         String name = null;
-        JSONArray name1=null;
+        JSONArray busStops=null;
         if (num.length()==5) {
 
             try {
@@ -58,18 +55,21 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
                 name = jsonStopInfo.getJSONObject(num).getString("name");
                 stop_name.setText(name);
                 stop_no.setText(num);
+                final GetBusTimes getBusTimes = new GetBusTimes(this);
+                getBusTimes.execute(num);
+                assert fab != null;
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(BusStopActivity.this, "No such stop!", Toast.LENGTH_SHORT).show();
-
             }
         }
         else if (num.length()<=4){
             try {
-                JSONObject jsonStopInfo = new JSONObject(loadJSONFromAsset("busTest.json"));
-                name1 = jsonStopInfo.getJSONArray(num);
+                JSONObject jsonBusInfo = new JSONObject(loadJSONFromAsset("reverseJson.json"));
+                busStops = jsonBusInfo.getJSONArray(num);
                 stop_name.setText(num);
                 stop_no.setText("");
+                busOrBusStop=1;
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(BusStopActivity.this, "No such BusService!", Toast.LENGTH_SHORT).show();
@@ -79,18 +79,46 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
         }
         //so that it can be used in the onClick
         final String nam = name;
+        final ArrayList<BusTimes> differentStops = null ;
 
 
+        for (int i=0;i<busStops.length();i++){
+            GetTimeforBusAndStop getBusTimes = null;
 
-        final GetBusTimes getBusTimes = new GetBusTimes(this);
-        getBusTimes.execute(num);
+            try {
+                getBusTimes = new GetTimeforBusAndStop(busStops.getString(i),num);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            differentStops.add(getBusTimes.main());
+        }
+        onReceived(differentStops);
         assert fab != null;
+
+
+        final JSONArray finalBusStops = busStops;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Refreshing", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                GetBusTimes getBusTimes = new GetBusTimes(thisContext);
-                getBusTimes.execute(num);
+                if (busOrBusStop==0){
+                    GetBusTimes getBusTimes = new GetBusTimes(thisContext);
+                 getBusTimes.execute(num);
+                 }
+                else{
+                    for (int i = 0; i< finalBusStops.length(); i++){
+                        GetTimeforBusAndStop getBusTimes = null;
+
+                        try {
+                            getBusTimes = new GetTimeforBusAndStop(finalBusStops.getString(i),num);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        differentStops.add(getBusTimes.main());
+                    }
+                    onReceived(differentStops);
+                    
+                }
             }
         });
 
