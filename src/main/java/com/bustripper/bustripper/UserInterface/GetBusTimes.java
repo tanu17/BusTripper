@@ -57,7 +57,7 @@ public class GetBusTimes extends AsyncTask<String, Void, ArrayList<BusTimes>> {
             if (inputStream == null) {
                 // Nothing to do.
                 BusTimesJsonStr = null;
-                return  busTimes;
+                return  null;
             }
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -136,7 +136,7 @@ public class GetBusTimes extends AsyncTask<String, Void, ArrayList<BusTimes>> {
 
             String time2 = bus.getJSONObject("NextBus2").getString("EstimatedArrival");
             if(time2.equals("")){
-                bt = new BusTimes(no, t1, -1, -1);
+                bt = new BusTimes(no, t1 , -1, -1);
                 return bt;
             }
             t2 = getTimeFromString(time2);
@@ -156,9 +156,9 @@ public class GetBusTimes extends AsyncTask<String, Void, ArrayList<BusTimes>> {
 
     public int getTimeFromString(String time){
         Calendar cal = Calendar.getInstance();
-        int hour = Integer.parseInt(time.substring(11,13))-cal.get(Calendar.HOUR_OF_DAY);
-        int offset = hour>0?hour*60:0;
-        int minute = Integer.parseInt(time.substring(14,16))-cal.get(Calendar.MINUTE)+offset;
+        //int hour = Integer.parseInt(time.substring(11,13))-cal.get(Calendar.HOUR_OF_DAY);
+        //int offset = hour>0?hour*60:0;
+        int minute = Integer.parseInt(time.substring(14,16))-cal.get(Calendar.MINUTE);
         int second = Integer.parseInt(time.substring(17,19))-cal.get(Calendar.SECOND);
         if(second<0){minute--;}
         return  minute;
@@ -184,4 +184,3 @@ public class GetBusTimes extends AsyncTask<String, Void, ArrayList<BusTimes>> {
     }
 
 }
-
