@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class BusStopActivity extends AppCompatActivity implements GetBusTimes.onReceivedBusTimes {
 
     static int busOrBusStop=0;
+    static ArrayList<BusTimes> differentStops = new ArrayList<BusTimes>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
 
         TextView stop_name = (TextView)findViewById(R.id.textView_stop_name);
         TextView stop_no = (TextView)findViewById(R.id.textView_stop_no);
-
+        TextView ServiceView= (TextView) findViewById(R.id.ServicetextView);
 
 
         String name = null;
@@ -55,7 +56,7 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
                 name = jsonStopInfo.getJSONObject(num).getString("name");
                 stop_name.setText(name);
                 stop_no.setText(num);
-                final GetBusTimes getBusTimes = new GetBusTimes(this);
+                GetBusTimes getBusTimes = new GetBusTimes(this);
                 getBusTimes.execute(num);
                 assert fab != null;
             } catch (Exception e) {
@@ -67,8 +68,9 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
             try {
                 JSONObject jsonBusInfo = new JSONObject(loadJSONFromAsset("reverseJson.json"));
                 busStops = jsonBusInfo.getJSONArray(num);
-                stop_name.setText(num);
-                stop_no.setText("");
+                stop_name.setText("");
+                stop_no.setText(num);
+                ServiceView.setText("BusStops");
                 busOrBusStop=1;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -79,45 +81,52 @@ public class BusStopActivity extends AppCompatActivity implements GetBusTimes.on
         }
         //so that it can be used in the onClick
         final String nam = name;
-        final ArrayList<BusTimes> differentStops = null ;
-
-
-        for (int i=0;i<busStops.length();i++){
+        if (busOrBusStop ==1){
             GetTimeforBusAndStop getBusTimes = null;
-
-            try {
-                getBusTimes = new GetTimeforBusAndStop(busStops.getString(i),num);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            differentStops.add(getBusTimes.main());
+            BusTimes busTime = null;
+            for (int i=0;i<busStops.length();i++){
+                try {
+                    String stopName="";
+                    JSONObject jsonStopInfo1 = new JSONObject(loadJSONFromAsset("stopInfo.json"));
+                    stopName = jsonStopInfo1.getJSONObject(busStops.getString(i)).getString("name");
+                    getBusTimes = new GetTimeforBusAndStop(busStops.getString(i),num,stopName);
+                    busTime = getBusTimes.main();
+                    differentStops.add(busTime);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
         }
-        onReceived(differentStops);
+        onReceived(differentStops);}
+
         assert fab != null;
 
 
         final JSONArray finalBusStops = busStops;
+        final JSONArray finalBusStops1 = busStops;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Refreshing", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                if (busOrBusStop==0){
+                if (busOrBusStop!=1){
                     GetBusTimes getBusTimes = new GetBusTimes(thisContext);
-                 getBusTimes.execute(num);
-                 }
+                    getBusTimes.execute(num);
+                }
                 else{
                     for (int i = 0; i< finalBusStops.length(); i++){
                         GetTimeforBusAndStop getBusTimes = null;
-
+                        differentStops= new ArrayList<BusTimes>();
                         try {
-                            getBusTimes = new GetTimeforBusAndStop(finalBusStops.getString(i),num);
+                            String stopName="";
+                            JSONObject jsonStopInfo1 = new JSONObject(loadJSONFromAsset("stopInfo.json"));
+                            stopName = jsonStopInfo1.getJSONObject(finalBusStops1.getString(i)).getString("name");
+                            getBusTimes = new GetTimeforBusAndStop(finalBusStops1.getString(i),num,stopName);
+                            differentStops.add(getBusTimes.main());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        differentStops.add(getBusTimes.main());
                     }
                     onReceived(differentStops);
-                    
+
                 }
             }
         });
