@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#AFEEEEEE">
-    tools:context="com.bustripper.bustripper.UserInterface.FindBusServiceActivity">
-
+    <!-- TO BE INSERTED WITH THE CORRESPONDING JAVA ACTIVITY FILE: tools:context="com.bustripper.bustripper.UserInterface.___________">  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,7 +11,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="70dp"
+            android:id="@+id/hide_searchview">
 
             <EditText
                 android:layout_width="250dp"
@@ -57,14 +58,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Stop Name"
+                    tools:text="Stop Name"
                     android:id="@+id/textView_stop_name" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Stop Number"
+                    tools:text="Stop Number"
                     android:id="@+id/textView_stop_no" />
 
             </LinearLayout>
@@ -88,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Service"
-                android:id="@+id/textView"
+                android:id="@+id/ServicetextView"
                 android:layout_weight="2" />
 
             <TextView
