@@ -3,6 +3,7 @@ package com.bustripper.bustripper.UserInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.bustripper.bustripper.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +25,9 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private ImageView routefromhalltojurong;
+    private TabLayout tabLayout;
+    private View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +42,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         Log.v(TAG, " Map end");
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.banner);
+        routefromhalltojurong = (ImageView) findViewById(R.id.routefromhalltojurong) ;
+        tabLayout = (TabLayout) findViewById(R.id.banner);
+        v = (View) findViewById(R.id.map);
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         ActivityAdapter adapter = new ActivityAdapter(this, getSupportFragmentManager());
 
@@ -44,9 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //Adding Fragments
         adapter.AddFragment(new RoutePlannerFragmentActivity());
-        Log.v(TAG, " route planner done");
         adapter.AddFragment(new FindBusServiceActivity());
-        Log.v(TAG, " SearchBus done");
         adapter.AddFragment(new SettingFragmentActivity());
 
         Log.v(TAG, " Before adapter setup");
@@ -64,7 +71,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         for (int i = 0; i < imageResId.length; i++) {
             tabLayout.getTabAt(i).setIcon(imageResId[i]);
         }
+      //  final int interval = 10000; // 10 Second
+      //  Handler handler = new Handler();
+      //  Runnable runnable = new Runnable(){
+      //      public void run() {
+      //          NotificationManager nm = new NotificationManager();
+      //          nm.notify(MainActivity.this);
+      //      }
+      //  };
 
+       // handler.postAtTime(runnable, System.currentTimeMillis()+interval);
+      //  handler.postDelayed(runnable, interval);
 
     }
 
@@ -107,4 +124,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.moveCamera(CameraUpdateFactory.newLatLng(singapore));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12.5f));
     }
+
+    public void routeput(){
+
+        v.setVisibility(View.INVISIBLE);
+        routefromhalltojurong.setVisibility(View.VISIBLE);
+
+        tabLayout.getLayoutParams().height = 330;
+        routefromhalltojurong.getLayoutParams().height = 1620;
+        routefromhalltojurong.getLayoutParams().width = 1500;
+    }
+
 }
